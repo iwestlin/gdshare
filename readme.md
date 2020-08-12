@@ -2,6 +2,29 @@
 ## demo
 [https://drive.google.com/drive/folders/1soZPZdN0beUTvnD8YbRXgOIeff7Dgwa2](https://drive.google.com/drive/folders/1soZPZdN0beUTvnD8YbRXgOIeff7Dgwa2)
 
+## 介绍
+这是一款受goindex启发而产生的项目，适合部署于cloudflare worker，相比原版有以下特性：
+
+- 全盘搜索（包括个人盘和所有有权限的团队盘，可点击搜索结果中的链接跳转到对应的google drive官方网址）
+- 分页浏览（可自定义每页文件数，每页可根据文件名和大小排序）
+- 更美观的UI（致谢 ant design）
+- 防爬虫，对于所有目录和文件，只有管理员才有读取和下载的权限（原版goindex可以通过在目录下防止 .password 来给目录设置读取密码，但无法限制单个文件的下载）
+- 可以生成下载直链，方便第三方下载工具下载，对于流媒体文件，可以用potplayer等播放器直接打开进行播放（可以自定义有效期）
+- 可以生成带有提取码的分享链接，方便分享给他人浏览和下载（同样支持自定义有效期）
+
+## changelog
+### 2020-08-12
+- 添加批量获取直链功能（可自行选择，也可一键获取当前目录下所有直接子文件的直链）
+- 添加唤起外部播放器功能（支持IINA/PotPlayer/VLC/nPlayer/MXPlayer）
+- 添加指定范围搜素功能（可在目录列表页进行搜索，由于Google API的限制，只能搜索当前目录的直接子文件，无法搜索到递归子目录的内容。若当前目录为团队盘根目录，则支持整盘搜索）
+- 「显示路径」按钮可正确识别团队盘名称（之前会返回"Drive"）
+- 后端搜索接口添加失败重试机制
+
+## tips
+- 本工具亦可当作goindex使用，只需将目录ID添加到 `https://your.website.com/ls/` 后即可。
+比如浏览团队盘内容可以直接访问 `https://your.website.com/ls/你的团队盘ID`
+浏览个人盘根目录可以直接访问 `https://your.website.com/ls/root`
+
 ## 搭建方法
 打开[template.js](./template.js)，根据提示修改变量：
 ```javascript
